@@ -1,17 +1,20 @@
 import React from 'react';
 import './App.css';
-// import '../SearchBar/SearchBar';
-// import '../SearchResults/SearchResults';
-// import '../Playlist/Playlist';
+import '../SearchBar/SearchBar';
+import '../SearchResults/SearchResults';
+import '../Playlist/Playlist';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div>
-        <h1>Ja<span class="highlight">mmm</span>ing</h1>
-        <div class="App">
+        <h1>Ja<span className="highlight">mmm</span>ing</h1>
+        <div className="App">
           { /* Add a SearchBar component */ }
-          <div class="App-playlist">
+          <div className="App-playlist">
             { /* Add a SearchResults component */ }
             { /* Add a Playlist component */ }
           </div>
