@@ -3,7 +3,7 @@ import './Track.css';
 
 class Track extends React.Component {
   constructor (props) {
-    super (props);
+    super(props);
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
   }

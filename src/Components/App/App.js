@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-// import SearchBar from '../SearchBar/SearchBar';
+import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 
@@ -15,6 +15,8 @@ class App extends React.Component {
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlayListName = this.updatePlayListName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
   }
 
   addTrack(trackToAdd) {
@@ -38,12 +40,21 @@ class App extends React.Component {
     this.setState ({playlistName: newPlaylistName});
   }
 
+  savePlaylist() {
+    let trackURIs = [];
+    this.state.playlistTracks.map (track => trackURIs.push (track.uri));
+  }
+
+  search(term) {
+    console.log(term);
+  }
+
   render() {
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          { /* Add a SearchBar component */ }
+          <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults
               searchResults={this.state.searchResults}
@@ -52,7 +63,8 @@ class App extends React.Component {
               playlistName={this.state.playlistName}
               playlistTracks={this.state.playlistTracks}
               onRemove={this.removeTrack}
-              onNameChange={this.updatePlayListName} />
+              onNameChange={this.updatePlayListName}
+              onSave={this.savePlaylist} />
           </div>
         </div>
       </div>
