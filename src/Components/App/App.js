@@ -25,9 +25,9 @@ class App extends React.Component {
     let current = this.state.playlistTracks.filter (track => track.id === newID);
     if (current.length === 0) {
       let playlist = this.state.playlistTracks;
-      console.log('Track: ' + trackToAdd.id);
+      // console.log('Track: ' + trackToAdd.id);
       playlist.push (trackToAdd);
-      console.log(playlist);
+      // console.log(playlist);
       this.setState ({playlistTracks: playlist});
     }
   }
@@ -45,10 +45,12 @@ class App extends React.Component {
 
   savePlaylist() {
     const trackURIs = this.state.playlistTracks.map(playlistTrack => playlistTrack.uri);
-    Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => {
+    Spotify.savePlaylist(this.state.playlistName, trackURIs)
+    .then(() => {
       this.setState ({
         playlistName: 'New Playlist',
-        searchResults: []
+        searchResults: [],
+        playlistTracks: []
       });
     })
   }
@@ -56,7 +58,7 @@ class App extends React.Component {
   search(term) {
     Spotify.search(term).then(searchResults => {
       this.setState({searchResults: searchResults});
-      console.log(searchResults);
+      // console.log(searchResults);
     });
   }
 

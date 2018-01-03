@@ -1,6 +1,6 @@
 const clientID = '63fac515cc2d4a83b4ab95912fb7ad4b';
-// const redirectURI = 'http://jammmingIris.surge.sh/';
-const redirectURI = 'http://localhost:3000/';
+const redirectURI = 'http://jammmingIris.surge.sh/';
+// const redirectURI = 'http://localhost:3000/';
 
 let accessToken;
 
@@ -44,7 +44,7 @@ const Spotify = {
     if (!playlistName || !trackURIs.length) {
       return;
     }
-    const accessTokenUser = Spotify.accessToken();
+    const accessTokenUser = Spotify.getAccessToken();
     const headers = {
       Authorization: `Bearer ${accessTokenUser}`,
       'content-type': 'application/json'
@@ -56,6 +56,7 @@ const Spotify = {
   }, networkError => console.log('Can not access user id')
     ).then(jsonReponse => {
         userID = jsonReponse.id;
+        // console.log(userID);
         return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
           headers: headers,
           method: 'POST',
