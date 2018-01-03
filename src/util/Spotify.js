@@ -29,8 +29,8 @@ const Spotify = {
       headers: {Authorization: `Bearer ${accessToken}`}
     }).then(response => {
       return response.json();
-    }).then(jsonResponse => {
-      return jsonResponse.tracks.items.map(track => ({
+    }).then(jsonReponse => {
+      return jsonReponse.tracks.items.map(track => ({
         id: track.id,
         name: track.name,
         artist: track.artists[0].name,
@@ -44,25 +44,35 @@ const Spotify = {
     if (!playlistName || !trackURIs.length) {
       return;
     }
-    const accessToken = Spotify.accessToken();
-    const headers = {Authorization: `Bearer ${accessToken}`};
+    const accessTokenUser = Spotify.accessToken();
+    const headers = {
+      Authorization: `Bearer ${accessTokenUser}`,
+      'content-type': 'application/json'
+    };
     let userID;
-
-    return fetch('https://api.spotify.com/v1/me', {headers: headers}).then(response => response.json()
-  ).then(jsonResponse => {
-        userID = jsonResponse.id;
+    return fetch('https://api.spotify.com/v1/me', {headers: headers}
+  ).then(response => {
+    return response.json()
+  }, networkError => console.log('Can not access user id')
+    ).then(jsonReponse => {
+        userID = jsonReponse.id;
         return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
           headers: headers,
           method: 'POST',
-          body: JSON.stringify({playlistName: playlistName})
-        }).then(response => response.json()
-      ).then(jsonResponse => {
-        const playlistID = jsonResponse.id;
-        return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
-          headers: headers,
-          method: 'POST',
-          body: JSON.stringify({uris: trackURIs})
-        });
+          body: JSON.stringify({name: playlistName})
+        }).then(response => {
+          return response.json()
+        }, networkError => console.log('Can not create playlist')
+      ).then(jsonReponse => {
+          const playlistID = jsonReponse.id;
+          return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+            headers: headers,
+            method: 'POST',
+            body: JSON.stringify({uris: trackURIs})
+          }).then(response => {
+            return response.json()
+          }, networkError => console.log('Can not create tracks')
+        );
       });
     });
   }

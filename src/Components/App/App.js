@@ -21,19 +21,21 @@ class App extends React.Component {
   }
 
   addTrack(trackToAdd) {
-    let newID = trackToAdd.ID;
-    let current = this.state.playlistTracks.filter (track => track.ID === newID);
+    let newID = trackToAdd.id;
+    let current = this.state.playlistTracks.filter (track => track.id === newID);
     if (current.length === 0) {
       let playlist = this.state.playlistTracks;
+      console.log('Track: ' + trackToAdd.id);
       playlist.push (trackToAdd);
+      console.log(playlist);
       this.setState ({playlistTracks: playlist});
     }
   }
 
   removeTrack(trackToDelete) {
-    let deleteID = trackToDelete.ID;
+    let deleteID = trackToDelete.id;
     this.setState ({playlistTracks: this.state.playlistTracks.filter (
-      track => track.ID !== deleteID)
+      track => track.id !== deleteID)
     });
   }
 
@@ -54,6 +56,7 @@ class App extends React.Component {
   search(term) {
     Spotify.search(term).then(searchResults => {
       this.setState({searchResults: searchResults});
+      console.log(searchResults);
     });
   }
 
