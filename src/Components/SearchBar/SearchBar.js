@@ -21,6 +21,7 @@ class SearchBar extends React.Component {
 
   clearSearch() {
     this.setState ({term: ''});
+    this.props.onClear();
   }
 
   handleTermChange(event) {
