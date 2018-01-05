@@ -1,6 +1,6 @@
 const clientID = '63fac515cc2d4a83b4ab95912fb7ad4b';
-const redirectURI = 'http://jammmingIris.surge.sh/';
-// const redirectURI = 'http://localhost:3000/';
+// const redirectURI = 'http://jammmingIris.surge.sh/';
+const redirectURI = 'http://localhost:3000/';
 
 let accessToken;
 
@@ -25,7 +25,7 @@ const Spotify = {
 
   search(term) {
     const accessToken = this.getAccessToken();
-    return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
+    return fetch(`https://api.spotify.com/v1/search?type=track&limit=50&q=${term}`, {
       headers: {Authorization: `Bearer ${accessToken}`}
     }).then(response => {
       return response.json();

@@ -49,7 +49,7 @@ class App extends React.Component {
     .then(() => {
       this.setState ({
         playlistName: 'New Playlist',
-        searchResults: [],
+        // searchResults: [],
         playlistTracks: []
       });
     })
