@@ -1,6 +1,6 @@
 const clientID = '63fac515cc2d4a83b4ab95912fb7ad4b';
-// const redirectURI = 'http://jammmingIris.surge.sh/';
-const redirectURI = 'http://localhost:3000/';
+const redirectURI = 'http://jammmingIris.surge.sh/';
+// const redirectURI = 'http://localhost:3000/';
 
 let accessToken;
 
